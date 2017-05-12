@@ -28,8 +28,13 @@ public:
     bool remove_edge(E,N,N);
     bool remove_node(N);
     bool find(N);
+    bool find(E);
     bool find_node(N, Node* &);
-   void print();
+    bool find_edge(E,Edge* &);
+    
+    void print();
+    void foo();
+
 };
 
 template<class Tr>
@@ -48,18 +53,34 @@ void CGraph<Tr>::print(){
 
 template <class Tr>
 bool CGraph<Tr>::find(N data){
- Node* tmp;
+    Node* tmp;
     if(!find_node(data, tmp))
         return 0;
     return 1;
 }
-
+template <class Tr>
+bool CGraph<Tr>::find(N data){
+    Edge* tmp;
+    if(!find_edge(data, tmp))
+        return 0;
+    return 1;
+}
 
 template <class Tr>
 bool CGraph<Tr>::find_node(N data, Node* &tmp){
     for(int i=0; i<m_nodes.size(); i++)
         if(m_nodes[i]->m_data==data){
             tmp=(m_nodes[i]);
+            return 1;
+        }
+    return 0;
+}
+
+template <class Tr>
+bool CGraph<Tr>::find_edge(E data,Edge* &tmp){
+    for(int i=0; i<m_edges.size(); i++)
+        if(m_edges[i]->m_data==data){
+            tmp=m_edges[i];
             return 1;
         }
     return 0;
@@ -120,5 +141,23 @@ bool CGraph<Tr>::remove_edge(E _data,N a,N b){
         }
     return 1;
 }
+
+template<class Tr>
+void CGraph<Tr>::foo(){
+    for(int i=0;i<m_nodes.size();i++){
+        for(int j=0;j<m_nodes[i]->m_nedges.size();j++){
+            //cout<<"n "<<m_nodes[i]->m_data<<" ";
+            // cout<<m_nodes[i]->m_nedges[j]->m_data<<" ";
+            // cout<<"- "<<m_nodes[i]->m_nedges[j]->m_node[0]->m_data<<" ";
+            // cout<<"-> "<<m_nodes[i]->m_nedges[j]->m_node[1]->m_data<<" ";
+            // cout<<endl;
+            if(m_nodes[i]->m_data==m_nodes[i]->m_nedges[j]->m_node[0]->m_data)
+            cout<<"sale\n";
+            else cout<<"entra\n";
+        }
+            cout<<endl;
+    }
+}
+
 
 #endif //CGRAPH_H
