@@ -58,13 +58,13 @@ file_tmp=file;*/
 
 	cgraph.print();
     
-    /*
+    
     if(cgraph.remove_node(4));
     if(cgraph.remove_edge("a",1,2)) cout<<"eliminado"<<endl;
     if(cgraph.remove_edge("b",1,3));
     if(cgraph.remove_edge("c",1,4));
     cgraph.print();
-    */
+    
     cgraph.foo();
 	
 

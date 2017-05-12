@@ -146,11 +146,11 @@ template<class Tr>
 void CGraph<Tr>::foo(){
     for(int i=0;i<m_nodes.size();i++){
         for(int j=0;j<m_nodes[i]->m_nedges.size();j++){
-            //cout<<"n "<<m_nodes[i]->m_data<<" ";
-            // cout<<m_nodes[i]->m_nedges[j]->m_data<<" ";
-            // cout<<"- "<<m_nodes[i]->m_nedges[j]->m_node[0]->m_data<<" ";
-            // cout<<"-> "<<m_nodes[i]->m_nedges[j]->m_node[1]->m_data<<" ";
-            // cout<<endl;
+            cout<<"n "<<m_nodes[i]->m_data<<" ";
+            cout<<m_nodes[i]->m_nedges[j]->m_data<<" ";
+            cout<<"- "<<m_nodes[i]->m_nedges[j]->m_node[0]->m_data<<" ";
+            cout<<"-> "<<m_nodes[i]->m_nedges[j]->m_node[1]->m_data<<" ";
+            cout<<endl;
             if(m_nodes[i]->m_data==m_nodes[i]->m_nedges[j]->m_node[0]->m_data)
             cout<<"sale\n";
             else cout<<"entra\n";
