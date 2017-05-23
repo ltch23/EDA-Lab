@@ -1,9 +1,10 @@
 #ifndef CTRAITS
 #define CTRAITS
 
+
 struct Traits_1
 {
-	typedef int n;
+	typedef string n;
 	typedef string e;
 	typedef int C;
 };
