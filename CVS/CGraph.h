@@ -4,10 +4,13 @@
 #include "CNode.h"
 #include "CEdge.h"
 #include "CPersistence.h"
+#include "CFile.h"
 
 #include <iostream>
 #include <vector>
 #include <stack>
+#include <fstream>
+
 using namespace std;
 
 template <class Tr>
@@ -25,7 +28,8 @@ public:
     vector<Node*> m_nodes;
     vector<Edge*> m_edges;
     vector<Pers*> m_times;
-
+    CFile file;
+    
     bool insert_node(N);
     bool insert_edge(E,N,N);
     bool remove_edge(E,N,N);
@@ -34,9 +38,10 @@ public:
     bool find_E(E);
     bool find_node(N, Node* &);
     bool find_edge(E,Edge* &);
-    
+    bool insert();
     void print();
-    bool foo(N);
+    bool find_(N);
+
 
 };
 
@@ -55,7 +60,40 @@ void CGraph<Tr>::print(){
         cout<<"  -- "<<m_edges[i]->m_data;
         cout<<" -->   "<<m_edges[i]->m_node[1]->m_data<<endl;
         }
+
+    cout<<"\n times:"<<endl;
+        for (int i=0; i<m_times.size();i++){
+        cout<<"data: "<<m_times[i]->m_edge->m_data<<endl;
+        cout<<"op: "<<m_times[i]->m_op<<endl;
+        }
+    cout<<endl;
 }
+template<class Tr>
+bool CGraph<Tr>::insert(){
+insert_node("1.txt");
+Node* tmp=m_nodes.back();
+int lenght=tmp->print().size();
+string str=file.read_file(tmp->m_data);
+int aux=lenght;
+while(aux==lenght){
+    cout<<"modifique"<<endl;
+    aux=tmp->print().size();
+}
+    cout<<aux<<endl;
+    cout<<lenght<<endl;
+insert_node("2.txt");
+file.create_file(m_nodes.back()->m_data,str);
+swap(m_nodes.back()->m_data,
+m_nodes[m_nodes.size()-2]->m_data);
+
+insert_edge("t"+to_string(m_nodes.size()-1),
+m_nodes.back()->m_data,
+m_nodes[m_nodes.size()-2]->m_data);
+m_times.push_back(new Pers(m_edges.back(),1));
+return true;
+
+}
+
 
 template <class Tr>
 bool CGraph<Tr>::find_N(N data){
@@ -149,7 +187,7 @@ bool CGraph<Tr>::remove_edge(E _data,N a,N b){
 }
 
 template<class Tr>
-bool CGraph<Tr>::foo(N data){
+bool CGraph<Tr>::find_(N data){
 stack<Node*> m_stack;
 Node* tmp =m_nodes.front();
 Node* aux =nullptr;
