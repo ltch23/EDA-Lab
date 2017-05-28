@@ -20,10 +20,6 @@ public:
         m_data=_data;
     }
 
-    string print(){
-        // file.create_file(m_data);
-        return file.read_file(m_data);
-    }
 };
 
 

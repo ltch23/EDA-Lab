@@ -2,39 +2,32 @@
 #define CTRAITS
 
 
-struct Traits_1
-{
+struct Traits_1{
 	typedef string n;
 	typedef string e;
 	typedef int C;
 };
 
 template <class T>
-struct CLess
-{
-	bool operator()(T a, T b)
-	{
+struct CLess{
+	bool operator()(T a, T b){
 		return a < b;
 	}
 };
 
 template <class T>
-struct CGreater
-{
-	bool operator()(T a, T b)
-	{
+struct CGreater{
+	bool operator()(T a, T b){
 		return a > b;
 	}
 };
 
-struct CListTraits
-{
+struct CListTraits{
 	typedef int T;
 	typedef CLess<T> C;
 };
 
-struct CListTraits2
-{
+struct CListTraits2{
 	typedef int T;
 	typedef CGreater<T> C;
 };
