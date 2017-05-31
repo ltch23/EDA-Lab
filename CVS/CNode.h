@@ -14,10 +14,12 @@ public:
     typedef typename G::Edge Edge;
     
     N m_data;
+    N m_branch;
     vector<Edge*> m_nedges;
     CFile file;
-    CNode(N _data){
+    CNode(N _data,N _branch){
         m_data=_data;
+        m_branch=_branch;
     }
 
 };
