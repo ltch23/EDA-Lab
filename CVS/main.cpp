@@ -21,17 +21,15 @@ int main(){
     while(op=='i' or op=='d' or op=='r'){
     if(op=='i')
         if(cgraph.insert());
-    else if(op=='d'){
-        cout<<"time: ";cin>>tim;
-        if(cgraph.remove(tim));
+    if(op=='d'){
+        if(cgraph.remove());
     }
-    else if(op=='r'){
+    if(op=='r'){
         cout<<"time: ";cin>>tim;
         if(cgraph.restore(tim));
     }
     cgraph.print();
     cout<<"op: ";cin>>op;
-
     }
 
     // if(cgraph.insert_edge("a","1.txt","2.txt"));

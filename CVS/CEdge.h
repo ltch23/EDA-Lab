@@ -24,6 +24,11 @@ public:
     bool m_op;
     E m_data;
     Node* m_node[2];
+    
+    void print(){
+    cout<<m_node[0]->m_data<<" "<<m_node[1]->m_data<<" "<<m_data<<" "<<m_op<<endl;
+    }
+
 };
 
 #endif //CEDGE_H

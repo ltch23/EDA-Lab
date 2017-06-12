@@ -36,12 +36,13 @@ public:
     bool find_N(N);
     bool find_E(E);
     bool find_node(N, Node* &);
+    bool find_node_b(N, Node* &);
     bool find_edge(E,Edge* &);
     void find_last(Node*&);
     bool find_branch(N data);
     string consult(Node*, Node*);
     bool insert();
-    bool remove(string);
+    bool remove();
     bool restore(string);
     void print();
     bool find_(N,Node*&);
@@ -60,19 +61,24 @@ void CGraph<Tr>::print(){
     cout<<endl;
     cout<<"\nAristas:"<<endl;
         for(int i=0; i<m_edges.size(); i++){
-        cout<<m_edges[i]->m_node[0]->m_data;
-        cout<<"  -- "<<m_edges[i]->m_data;
-        cout<<" -->   "<<m_edges[i]->m_node[1]->m_data<<endl;
+        cout<<m_edges[i]->m_node[0]->m_data<<": ";
+        cout<<m_edges[i]->m_node[0]->m_branch;
+        cout<<" - "<<m_edges[i]->m_data;
+        cout<<" -> "<<m_edges[i]->m_node[1]->m_data<<": ";
+        cout<<m_edges[i]->m_node[1]->m_branch<<endl;
         }
 
     cout<<"\nRamas:"<<endl;
        for (int i=0; i<m_branches.size();i++)
-        cout<<m_branches[i]<<" ";cout<<endl;
+            cout<<m_branches[i]<<" ";
+        cout<<endl;
     // cout<<endl;
 
 }
 template<class Tr>
 string CGraph<Tr>::consult(Node* begin, Node* last){
+    cout<<"inicio: "<<begin->m_data<<"\t";
+    cout<<"fin: "<<last->m_data<<"\n";
     string branch=begin->m_branch;
     string m_rpta=begin->m_data;
     while(begin!=last){
@@ -96,68 +102,109 @@ string CGraph<Tr>::consult(Node* begin, Node* last){
 
 template<class Tr>
 bool CGraph<Tr>::insert(){
-string data_before="-";
-string data_after;
+string data_before="";
+string data_after="" ;
+string data_tmp="";
 Node* tmp=nullptr;
 Node* tmp2=nullptr;
+Edge* edge=nullptr;
 int lenght;
-char br; string name="b1";
+char br; string name,pos;
 cout<<"INSERT\n";
-// cout<<"nuevo branch 'n': ";cin>>br;
-// if(br=='n'){
-//     cout<<"nombre: ";cin>>name;
-//     m_branches.push_back(name);
-// }
-// else{
-// cout<<"select branch: ";cin>>name;
-// if(find_branch(name)==true)
-//    find_(name,tmp);
-// else{
-//     cout<<"no existe branch\n";    
-//     return false;
-//     }
-// }
 
 if(m_nodes.size()==0){
+    cout<<"create branch: ";cin>>name;
+    m_branches.push_back(name);
     data_before=cfile.read_file(file);
     insert_node(data_before,name);
     lenght=data_before.size();
     tmp=m_nodes.back();
 }
 else{
-    find_(name,tmp);
-    tmp2= tmp;
-    find_last(tmp);
-    data_before=consult(tmp2,tmp);
-    cout<<"data_b: "<<data_before;
+    cout<<"nuevo branch 'n' | select branch 's': ";cin>>br;
+    if(br=='n'){
+        cout<<"branch: ";cin>>name;
+        cout<<"tiempo: "; cin>>pos;
+        m_branches.push_back(name);
+        find_edge(pos,edge);
+        tmp2=m_nodes.front();
+        tmp=edge->m_node[1];
+    }
+    else if(br=='s'){
+        cout<<"branch: ";cin>>name;
+        //find_branch(name);
+        find_node_b(name,tmp);
+        tmp2= tmp;
+        find_last(tmp);
+        data_tmp="";
+
+        if(name!=m_branches.front()){
+            cout<<"entro\n";
+            data_tmp=consult(m_nodes.front(),tmp2->m_nedges[0]->m_node[0]);
+        }
+    }
+    
+    data_before=data_tmp+consult(tmp2,tmp);
+    cfile.save_file(file,data_before);
+    // return cfile.read_file(file);
+    cout<<"data_b: "<<data_before<<endl;
     lenght=data_before.size();
     }   
- 
     int aux=lenght;
     while(aux==lenght){
-        // cout<<"modifique"<<endl;
-        data_after=cfile.read_file(file);
+        data_after= cfile.read_file(file);
         aux=data_after.size();
-        // cout<<"aux: "<<aux<<endl;
-        // cout<<"len:"<<lenght<<endl;
     }
     bool op=cfile.get_change(data_before, data_after);
-    // cout<<"after:   "<<data_after<<endl;
     insert_node(data_after,name);     
     insert_edge("t"+to_string(m_nodes.size()-1),
-    m_nodes[m_nodes.size()-2]->m_data,
-    m_nodes.back()->m_data,op);
-    // m_times.push_back(new Pers(m_edges.back(),op));
+    tmp->m_data, m_nodes.back()->m_data,op);
+    // m_edges.front()->print();
     
+    tmp=nullptr;
+    tmp2=nullptr;
+
     return true;
 
 
 }
 
 template<class Tr>
-bool CGraph<Tr>::remove(string t){
+bool CGraph<Tr>::remove(){
+string pos="",data_before="";
+Node *tmp=nullptr;
+Node *begin=nullptr;
 
+Edge *edge=nullptr;
+stack<Node*> m_stack;
 
+cout<<"tiempo: "; cin>>pos;
+find_edge(pos,edge);
+tmp=edge->m_node[1];
+cout<<"data: "<<tmp->m_data<<endl;
+begin=edge->m_node[0];
+m_stack.push(tmp);
+while(tmp->m_nedges.size()>1  or tmp==m_nodes.front()){
+        cout<<"entre\n";
+        for(int i=0;i<tmp->m_nedges.size();i++){
+            if(tmp==tmp->m_nedges[i]->m_node[0] ){
+                tmp=tmp->m_nedges[i]->m_node[1];
+                m_stack.push(tmp);
+            }
+        }
+    }
+
+    while(!m_stack.empty()){
+        tmp =m_stack.top();
+        remove_node(tmp->m_data);
+        m_stack.pop();
+    }
+
+    data_before=consult(m_nodes.front(),begin);
+    cfile.save_file(file,data_before);
+    cout<<"data: "<<data_before<<endl;
+    return true;
+    
 }
 
 template<class Tr>
@@ -204,6 +251,16 @@ bool CGraph<Tr>::find_E(E data){
     if(!find_edge(data, tmp))
         return 0;
     return 1;
+}
+
+template <class Tr>
+bool CGraph<Tr>::find_node_b(N data, Node* &tmp){
+    for(int i=0; i<m_nodes.size(); i++)
+        if(m_nodes[i]->m_branch==data){
+            tmp=(m_nodes[i]);
+            return 1;
+        }
+    return 0;
 }
 
 template <class Tr>
@@ -284,18 +341,21 @@ bool CGraph<Tr>::remove_edge(E _data,N a,N b){
 
 template<class Tr>
 bool CGraph<Tr>::find_(N branch, Node* &tmp){
+    cout<<"branch: "<<branch<<endl;
     tmp =m_nodes.front();
     stack<Node*> m_stack;
     Node* aux =nullptr;
-    while (tmp->m_branch != branch){
-        int length=tmp->m_nedges.size();
-        if(length>2) m_stack.push(tmp);
+    int length=tmp->m_nedges.size();
+    // while (length>1){
+    while (tmp->m_branch!= branch){
+            if(length>2) m_stack.push(tmp);
         for(int i=0;i<length;i++){
-            if(tmp == tmp->m_nedges[i]->m_node[0] ){
+            if(tmp == tmp->m_nedges[i]->m_node[0]  and
+                tmp->m_nedges[i]->m_node[1]->m_branch == branch){
                 tmp = tmp->m_nedges[i]->m_node[1];break;
             }
         }
-        if(length==1){
+        if(tmp!= m_nodes.front() and length!=1){
             while(!m_stack.empty()){
                 tmp =m_stack.top();
                 int i=2,j=i;
@@ -306,9 +366,9 @@ bool CGraph<Tr>::find_(N branch, Node* &tmp){
                             aux=aux->m_nedges[i]->m_node[1];
                             if(aux->m_branch==branch){
                             tmp=aux;
+                            cout<<"data find "<<tmp->m_data<<endl;
                             return true;
                             } 
-                                
                             else{
                                 if(aux->m_nedges.size()>2)
                                 m_stack.push(aux);
@@ -320,22 +380,28 @@ bool CGraph<Tr>::find_(N branch, Node* &tmp){
             }
             m_stack.pop();
             } 
+        cout<<"no find"<<endl;
         return false;
         }
     }
+    cout<<"data find "<<tmp->m_data<<endl;
     return true;
 }
 
 template<class Tr>
 void CGraph<Tr>::find_last(Node* &tmp){
+
     string branch=tmp->m_branch;
+    cout<<"branch: "<<branch<<endl;
     while(tmp->m_nedges.size()>1  or tmp==m_nodes.front()){
         for(int i=0;i<tmp->m_nedges.size();i++){
             if(tmp==tmp->m_nedges[i]->m_node[0] and 
             tmp->m_nedges[i]->m_node[1]->m_branch==branch)
                 tmp=tmp->m_nedges[i]->m_node[1];
         }
-    } 
+    }
+    cout<<"data last: "<<tmp->m_data<<endl; 
+     
     
 }
 

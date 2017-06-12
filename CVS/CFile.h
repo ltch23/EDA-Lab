@@ -22,7 +22,7 @@ void CFile::create_file(string & file_path,string str){
 }
 
 void CFile::save_file(string & file_path, string & str){
-    ofstream os_file ;
+    ofstream os_file (file_path.c_str());
     os_file << str;
     os_file.close();
 }
