@@ -55,6 +55,5 @@ bool CFile::get_change(string str1, string & str2){
     return true;
     }
 }
-    
 
 #endif //CEDGE_H
