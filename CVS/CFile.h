@@ -36,8 +36,9 @@ string CFile::read_file(string & file_path){
     return rpta;
 }
 void CFile::merge_file(string & str1 ,string & str2){
-    str1=str2;
+    str1+=str2;
 }
+
 bool CFile::get_change(string str1, string & str2){
     char op;
     int lenght;
