@@ -5,21 +5,18 @@ insert select master, ABCD
 insert select master, ABCDE
 insert select master, ABCDEF
 insert select master, ABCDEFG
+insert new b1 t5, ABCDEF1
+insert select b1, ABCDEF12
+insert select b1, ABCDEF123
+insert select b1, ABCDEF1234
 insert select master, ABCDEFGH
 insert select master, ABCDEFGHI
 insert select master, ABCDEFGHIJ
-insert select master, ABCDEFGHIJK
-insert select master, ABCDEFGHIJKL
-insert select master, ABCDEFGHIJKLM
-insert select master, ABCDEFGHIJKLMN
-insert select master, ABCDEFGHIJKLMNO
-insert select master, ABCDEFGHIJKLMNOP
-insert select master, ABCDEFGHIJKLMNOPQ
-insert select master, ABCDEFGHIJKLMNOPQR
-insert select master, ABCDEFGHIJKLMNOPQRS
-insert select master, ABCDEFGHIJKLMNOPQRST
-insert select master, ABCDEFGHIJKLMNOPQRSTU
-insert select master, ABCDEFGHIJKLMNOPQRSTUV
-insert select master, ABCDEFGHIJKLMNOPQRSTUVW
-insert select master, ABCDEFGHIJKLMNOPQRSTUVWX
-insert select master, ABCDEFGHIJKLMNOPQRSTUVWXY
+insert new b2 t8, ABCDEF12qqwewqe
+insert new b3 t9, ABCDEF123499999
+insert select b2, ABCDEF12qqwewqeasdasd
+insert select b2, ABCDEF12qqwewqeasdasdppoi
+insert select b2, ABCDEF1234999990000
+insert select b2, ABCDEF12349999900007777
+insert new b4 t10, ABCDEF123499999
+delete t15,      
