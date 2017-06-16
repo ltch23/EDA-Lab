@@ -479,11 +479,9 @@ bool CGraph<Tr>::find_(N branch, Node* &tmp){
             }
             m_stack.pop();
             } 
-        cout<<"no find"<<endl;
         return false;
         }
     }
-    cout<<"data find "<<tmp->m_data<<endl;
     return true;
 }
 
