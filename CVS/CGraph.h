@@ -3,7 +3,6 @@
 
 #include "CNode.h"
 #include "CEdge.h"
-#include "CPersistence.h"
 #include "CFile.h"
 
 #include <iostream>
@@ -158,6 +157,8 @@ bool CGraph<Tr>::get_path2(Node* &node,list<Node*>& lista){
         for(int i=0;i<node->m_nedges.size();i++){
             if(node==node->m_nedges[i]->m_node[0] and 
             node->m_nedges[i]->m_node[1]->m_branch==branch){
+                if(node->m_nedges[i]->m_status==false)
+                    return true;
                 node=node->m_nedges[i]->m_node[1];
                 lista.push_back(node);
             }
@@ -166,6 +167,7 @@ bool CGraph<Tr>::get_path2(Node* &node,list<Node*>& lista){
             //     node->m_nedges[i]->m_node[1]->m_branch!=branch)
             //     return true;
            }
+            
     }
     // lista.push_back(node);
     return true;
@@ -356,8 +358,7 @@ bool CGraph<Tr>::restore(string pos){
     for(int i=posi; i<=m_edges.size();i++){
         cout<<"data: "<<m_edges[i]->m_data<<" ";
         if(m_edges[i]->m_data=="t"+to_string(i+1)){
-            cout<<"entre\n";
-            m_edges[i]->m_status= false;
+            m_edges[i]->m_status= not m_edges[i]->m_status;
         }
     }
     cout<<endl;
