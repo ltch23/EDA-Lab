@@ -58,6 +58,7 @@ public:
     bool insert(char, string, string, string);
     bool remove(string);
     bool restore(string);
+    bool merge(string);
     
     void print();
     void draw_graph();
@@ -71,11 +72,14 @@ void CGraph<Tr>::draw_graph(){
     
     for(int i=0; i<m_edges.size(); i++){
     // file<<m_edges[i]->m_node[0]->m_data<<": ";
-    if(m_edges[i]->m_status==true){
     file<<m_edges[i]->m_node[0]->m_data+" -> ";
-    file<<m_edges[i]->m_node[1]->m_data+"[label=\"";
-    file<<m_edges[i]->m_data+"\"];\n";
-    }
+    if(m_edges[i]->m_status==true)
+        file<<m_edges[i]->m_node[1]->m_data+"[label=\"";
+    else if(m_edges[i]->m_status==false)
+        file<<m_edges[i]->m_node[1]->m_data+"[color=red,label=\"";
+    
+    file<<m_edges[i]->m_data+"-"+m_edges[i]->m_node[1]->m_branch+"\"];\n";
+    
     }
     file<<"}\n";
     file.close();
@@ -356,15 +360,6 @@ bool CGraph<Tr>::restore(string pos){
         }   
     }
     cout<<endl;
-    // data_before=read2(lista);
-    // cfile.save_file(file,data_before);
-        
-    // bool op=cfile.get_change(data_before, _data);
-    // insert_node(_data, _branch);     
-    // insert_edge("t"+to_string(lenght-1),
-    // tmp->m_data, m_nodes.back()->m_data,op);
-    // }
-    // tmp=nullptr;
 
     return true;
 }
