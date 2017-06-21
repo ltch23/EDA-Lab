@@ -160,16 +160,17 @@ bool CGraph<Tr>::get_path2(Node* &node,list<Node*>& lista){
     while(node->m_nedges.size()>1 or node==m_nodes.front() ){
         for(int i=0;i<node->m_nedges.size();i++){
             if(node==node->m_nedges[i]->m_node[0] and 
-            node->m_nedges[i]->m_node[1]->m_branch==branch){
-                if(node->m_nedges[i]->m_status==false)
-                    return true;
+                node->m_nedges[i]->m_node[1]->m_branch==branch and
+                node->m_nedges[i]->m_status==true){
+                // if(node->m_nedges[i]->m_status==false)
+                    // return true;
                 node=node->m_nedges[i]->m_node[1];
                 lista.push_back(node);
-            }
-            // else if(i == node->m_nedges.size()-1 and
-            //     node==node->m_nedges[i]->m_node[0] and 
-            //     node->m_nedges[i]->m_node[1]->m_branch!=branch)
-            //     return true;
+                }
+
+            else if(i == node->m_nedges.size()-1)
+                return true;
+            // }
            }
             
     }
@@ -235,7 +236,6 @@ bool CGraph<Tr>::consult(string pos){
 
 }
 
-
 template<class Tr>
 bool CGraph<Tr>::insert(char br, string _branch, string pos, string _data){
     string data_before="";
@@ -274,7 +274,6 @@ bool CGraph<Tr>::insert(char br, string _branch, string pos, string _data){
 
     return true;
 }
-
 
 template<class Tr>
 bool CGraph<Tr>::remove(string pos){
@@ -328,19 +327,19 @@ bool CGraph<Tr>::remove(string pos){
     }
     
 
-for(int i=0;i<m_stack.size();i++)
-    for(int j=i+1;j<m_stack.size();j++)
-        if(m_stack[i]->m_data==m_stack[j]->m_data)
-            m_stack.erase(m_stack.begin()+j);
+    for(int i=0;i<m_stack.size();i++)
+        for(int j=i+1;j<m_stack.size();j++)
+            if(m_stack[i]->m_data==m_stack[j]->m_data)
+                m_stack.erase(m_stack.begin()+j);
 
-    while(!m_stack.empty()){
-        tmp =m_stack.back();
-        remove_branch(tmp->m_branch);    
-        // cout<<tmp->m_data<<"\n";
-        remove_node(tmp->m_data);
-        m_stack.pop_back();
-    }
-    
+        while(!m_stack.empty()){
+            tmp =m_stack.back();
+            remove_branch(tmp->m_branch);    
+            // cout<<tmp->m_data<<"\n";
+            remove_node(tmp->m_data);
+            m_stack.pop_back();
+        }
+        
     return true;
 }
 
