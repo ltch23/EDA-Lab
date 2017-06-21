@@ -342,24 +342,18 @@ for(int i=0;i<m_stack.size();i++)
 
 template<class Tr>
 bool CGraph<Tr>::restore(string pos){
+    cout<<"RESTORE"<<endl;
     string data_before="";
     int posi=stoi(pos.erase(0,1));
-    // string data_tmp="";
-    // Node* tmp=nullptr;
-    // Edge* edge=nullptr;
-    // list<Node*> lista;
-    // lista.clear();
-
-    // //m_branches.push_back(_branch);
-    // find_edge(pos,edge);
-    // tmp=edge->m_node[1];
-    // get_path3(tmp,lista);
-
-    for(int i=posi; i<=m_edges.size();i++){
+    cout<<posi<<endl;
+    cout <<m_edges.size()<<endl;
+    for(int i=posi; i<m_edges.size();i++){
         cout<<"data: "<<m_edges[i]->m_data<<" ";
+        cout<<m_edges[i]->m_data<<" ";
         if(m_edges[i]->m_data=="t"+to_string(i+1)){
             m_edges[i]->m_status= not m_edges[i]->m_status;
-        }
+        //    m_edges[i]->m_status= false;
+        }   
     }
     cout<<endl;
     // data_before=read2(lista);
