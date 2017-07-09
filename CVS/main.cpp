@@ -71,11 +71,15 @@ void parser(vector<string> m_parser){
         }
         else if(m_parser[0]== "restore" )
             cgraph.restore(m_parser[1]);
+
         else if(m_parser[0]== "delete" )
             cgraph.remove(m_parser[1]);
 
         else if(m_parser[0]== "consult" )
             cgraph.consult(m_parser[1]);
+
+        else if(m_parser[0]== "merge" )
+            cgraph.merge(m_parser[1],m_parser[2]);
             
         else
         cout<<"Error, mal ingreso";

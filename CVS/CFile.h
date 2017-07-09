@@ -11,7 +11,7 @@ public:
     void create_file(string &,string);
     void save_file(string &, string &);
     string read_file(string &);
-    void merge_file(string & ,string &);
+    bool merge_file(string  ,string &);
     bool get_change(string ,string &); 
 };
 
@@ -35,8 +35,14 @@ string CFile::read_file(string & file_path){
     is_file.close(); 
     return rpta;
 }
-void CFile::merge_file(string & str1 ,string & str2){
-    str1+=str2;
+bool CFile::merge_file(string  str1 ,string & str2){
+    
+    int tmp=0;
+    for(int i=0;i<str1.size();i++)
+        if(str1[i]==str2[i])
+        tmp++;
+    str2.erase(0,tmp);
+    return true;
 }
 
 bool CFile::get_change(string str1, string & str2){
