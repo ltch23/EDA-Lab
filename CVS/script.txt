@@ -1,25 +1,31 @@
-insert select master, A
-insert select master, AB
-insert select master, ABC
-insert select master, ABCD
-insert select master, ABCDE
-insert select master, ABCDEF
-insert select master, ABCDEFG
-insert select master, ABCDEFGH
-insert select master, ABCDEFGHI
-insert select master, ABCDEFGHIJ
-insert select master, ABCDEFGHIJK
-insert select master, ABCDEFGHIJKL
-insert select master, ABCDEFGHIJKLM
-insert select master, ABCDEFGHIJKLMN
-insert select master, ABCDEFGHIJKLMNO
-insert select master, ABCDEFGHIJKLMNOP
-insert select master, ABCDEFGHIJKLMNOPQ
-insert select master, ABCDEFGHIJKLMNOPQR
-insert select master, ABCDEFGHIJKLMNOPQRS
-insert select master, ABCDEFGHIJKLMNOPQRST
-insert select master, ABCDEFGHIJKLMNOPQRSTU
-insert select master, ABCDEFGHIJKLMNOPQRSTUV
-insert select master, ABCDEFGHIJKLMNOPQRSTUVW
-insert select master, ABCDEFGHIJKLMNOPQRSTUVWX
-insert select master, ABCDEFGHIJKLMNOPQRSTUVWXY
+insert select m, A
+insert select m, AB
+insert select m, ABC
+insert select m, ABCD
+insert select m, ABCDE
+insert select m, ABCDEF
+insert select m, ABCDEFG
+insert select m, ABCDEFGH
+insert select m, ABCDEFGHI
+insert select m, ABCDEFGHIJ
+insert new b1 t5, ABCDEF1
+insert select b1, ABCDEF12
+insert select b1, ABCDEF123
+insert select b1, ABCDEF1234
+insert select b1, ABCDEF12345
+insert new b2 t11, ABCDEF12xYxY
+insert new b3 t12, ABCDEF123S2S2
+insert select b2, ABCDEF12xYxYasdasd
+insert select b2, ABCDEF12xYxYasdasdLuis
+insert select b2, ABCDEF12xYxYasdasdLuisTong
+insert select b2, ABCDEF12xYxYasdasdLuisTongCh
+insert new b4 t13, ABCDEF1234comecome
+insert select b4, ABCDEF1234comecomepocorn
+insert select b4, ABCDEF1234comecomepocornsalado
+restore t22,
+insert select b4, ABCDEF1234comecomepocorndulce
+insert select b4, ABCDEF1234comecomepocorndulcerico
+restore t24,
+insert select b4, ABCDEF1234comecomepocorndulcefeo
+merge m b1,
+insert select b4, ABCDEF1234comecomepocorndulcefeomediorico

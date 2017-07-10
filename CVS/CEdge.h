@@ -16,6 +16,7 @@ public:
         m_node[1]=b;
         m_data=e;
         m_op=_op;
+        m_status=true;
         /*
         op=1 -> insert
         op=0 -> delete
@@ -23,8 +24,8 @@ public:
     }
     bool m_op;
     E m_data;
-    Node* m_node[2];
-    
+    Node* m_node[2];        
+    bool m_status;
     void print(){
     cout<<m_node[0]->m_data<<" "<<m_node[1]->m_data<<" "<<m_data<<" "<<m_op<<endl;
     }

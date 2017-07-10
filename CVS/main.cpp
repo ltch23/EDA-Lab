@@ -69,13 +69,17 @@ void parser(vector<string> m_parser){
                 cgraph.insert('s',m_parser[2],"",m_parser[3]);
             return;
         }
-        else if(m_parser[0]== "restore" );
+        else if(m_parser[0]== "restore" )
+            cgraph.restore(m_parser[1]);
 
         else if(m_parser[0]== "delete" )
             cgraph.remove(m_parser[1]);
 
         else if(m_parser[0]== "consult" )
-            cgraph.consult(m_parser[1], m_parser[2]);
+            cgraph.consult(m_parser[1]);
+
+        else if(m_parser[0]== "merge" )
+            cgraph.merge(m_parser[1],m_parser[2]);
             
         else
         cout<<"Error, mal ingreso";
